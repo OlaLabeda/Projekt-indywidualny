@@ -57,6 +57,3 @@ class DatabaseFlight:
         except IsADirectoryError:
             raise PathIsDirectory('The path is a directory')
 
-
-
-

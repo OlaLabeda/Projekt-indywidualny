@@ -135,6 +135,9 @@ def main():
                     return 0
             elif if_chosen == '2':
                 print(boarding_card(passenger, flight_informations, seat_number, seat_class))
+                boarding_card_data = open("boarding_card.txt", "w")
+                boarding_card_data.write(boarding_card(passenger, flight_informations, seat_number, seat_class))
+                boarding_card_data.close()
                 print("\nIf You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':

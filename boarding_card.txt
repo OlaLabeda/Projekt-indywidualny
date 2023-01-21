@@ -1,0 +1,6 @@
+Seat number:               A01          Class:                business
+Name:                  Barbara          Surname:                  Kruk
+From:                   Warsaw          To:                     Berlin
+Departure_date:     25-01-2023          Arrival_date:       25-01-2023
+Departure_time:           9:15          Arrival_time:            10:35
+Plane name:                                             Boeing_737-800
