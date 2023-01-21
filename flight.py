@@ -2,6 +2,7 @@ class Flight:
     def __init__(self, flight_id, go_from,
                  go_to, date_from, date_to,
                  hour_from, hour_to, gate_number,
+                 boarding_till,
                  plane_id, plane_name):
         self._flight_id = flight_id
         self._go_from = go_from
@@ -11,6 +12,7 @@ class Flight:
         self._hour_from = hour_from
         self._hour_to = hour_to
         self._gate_number = gate_number
+        self._boarding_till = boarding_till
         self._plane_id = plane_id
         self._plane_name = plane_name
 
@@ -37,6 +39,9 @@ class Flight:
 
     def gate_number(self):
         return self._gate_number
+
+    def boarding_till(self):
+        return self._boarding_till
 
     def plane_id(self):
         return self._plane_id

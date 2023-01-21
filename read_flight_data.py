@@ -22,6 +22,7 @@ def read_from_flight_file(file_handle):
             hour_from = row['hour_from']
             hour_to = row['hour_to']
             gate_number = row['gate_number']
+            boarding_till = row['boarding_till']
             plane_id = row['plane_id']
             plane_name = row['plane_name']
             if None in row.values():
@@ -30,7 +31,8 @@ def read_from_flight_file(file_handle):
                 flight = Flight(flight_id, go_from, go_to,
                                 date_from, date_to,
                                 hour_from, hour_to,
-                                gate_number, plane_id,
+                                gate_number, boarding_till,
+                                plane_id,
                                 plane_name)
             except Exception:
                 raise InvalidFlightError(row)
