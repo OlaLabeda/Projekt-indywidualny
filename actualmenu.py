@@ -20,6 +20,26 @@ def flight_info(id, list_of_flights):
         if (planes.flight_id() == id):
             return planes
 
+def boarding_gate_info(flight_data):
+    gate_number = flight_data.gate_number()
+    boarding_till = flight_data.boarding_till()
+    first_part = f'Number of the gate: {gate_number.rjust(20)}\n'
+    second_part = f'Boarding process till: {boarding_till.rjust(20)}'
+    return first_part + second_part
+
+
+def fligh_data_to_print(flight_data):
+    place_from = flight_data.go_from()
+    place_to = flight_data.go_to()
+    departure_date = flight_data.date_from()
+    arrival_date = flight_data.date_to()
+    departure_time = flight_data.hour_from()
+    arrival_time = flight_data.hour_to()
+    plane_name = flight_data.plane_name()
+    place = 'From:'.ljust(20) + place_from.rjust(10) + ' '.ljust(10) + 'To:'.ljust(20) + place_to.rjust(10)
+    date = 'Departure_date:'.ljust(20) + departure_date.rjust(10) + " ".ljust(10) + 'Arrival_date:'.ljust(20) + arrival_date.rjust(10)
+    time = 'Departure_time:'.ljust(20) + departure_time.rjust(10) + " ".ljust(10) + 'Arrival_time:'.ljust(20) + arrival_time.rjust(10)
+    return place + '\n' + date + '\n' + time + '\n' + 'Plane name:'.ljust(20) + plane_name.rjust(50)
 
 def main():
     list_of_passengers = DatabasePerson
@@ -94,25 +114,45 @@ def main():
             print("2 if You want to print Your boarding pass")
             print("3 if You want to order the help of an assistant")
             print("4 if You want to recieve boarding gate info")
-            print("5 if You want to recieve plane info")
+            print("5 if You want to recieve plane and flight info")
             if_chosen = input()
+            os.system('cls')
             if if_chosen == '1':
-                print("If You want to return to menu press y, else press n")
-            elif if_chosen == 2:
-                pass
-            elif if_chosen == 3:
-                pass
-            elif if_chosen == 4:
-                pass
-            elif if_chosen == 5:
-                pass
+                print("If You want to return to menu press y")
+                if_return = input()
+                if if_return == 'y' or if_return =='Y':
+                    if_chosen = 0
+                else:
+                    return 0
+            elif if_chosen == '2':
+                print(2)
+            elif if_chosen == '3':
+                print(3)
+            elif if_chosen == '4':
+                print(boarding_gate_info(flight_informations))
+                print("If You want to return to menu press y")
+                if_return = input()
+                if if_return == 'y' or if_return =='Y':
+                    if_chosen = 0
+                else:
+                    return 0
+            elif if_chosen == '5':
+                print(fligh_data_to_print(flight_informations))
+                print("If You want to return to menu press y")
+                if_return = input()
+                if if_return == 'y' or if_return =='Y':
+                    if_chosen = 0
+                else:
+                    return 0
             else:
                 if_continue = input("There's no such option, press a to try again: ")
-                if (if_continue != 'a' and if_continue != 'A'):
-                    return 0
-                else:
+                print("If You want to return to menu press y")
+                if_return = input()
+                if if_return == 'y' or if_return =='Y':
                     if_chosen = 0
+                else:
+                    return 0
 
-# borading end 15 mins before departure
+
 if __name__ == "__main__":
     main()
