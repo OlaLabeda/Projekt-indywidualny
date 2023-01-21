@@ -14,6 +14,16 @@ def check_input_data(name, surname, ticket_number, phone_number, list_of_passeng
                         'seat': passengers.seat()}
     return {}
 
+def flight_info(id, list_of_flights):
+    for planes in list_of_flights:
+        if (planes.flight_id() == id):
+            return planes
+
+def which_plane(id, list_of_flights):
+    for planes in list_of_flights:
+        if (planes.flight_id() == id):
+            return planes.plane_name()
+
 def main():
     list_of_passengers = DatabasePerson
     list_of_passengers.load_from_file(list_of_passengers,
@@ -46,10 +56,15 @@ def main():
         list_of_planes = DatabasePlane
         list_of_planes.load_from_file(list_of_planes,
                                       "plane_data.txt")
+        list_of_flights = DatabaseFlight
+        list_of_flights.load_from_file(list_of_flights,
+                                       "flights_data.txt")
+
+        flight_informations =  flight_info(passenger.flight_id(), list_of_flights.data)
+        print(f'passengers plane: {flight_informations.plane_name()}')
 
 
-       # for planes in list_of_planes:
-       #     if planes.name() ==
+
         which_class_size = len(passenger.seat())
         # class business => 8 letters or economy => 7 letters
         # nummber of a seat always has 3 signs

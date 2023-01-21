@@ -1,4 +1,4 @@
-from seats_in_a_plane import Plane
+from plane import Plane
 import csv
 
 class MalformPlaneDataError(Exception):
@@ -26,7 +26,7 @@ def read_from_plane_file(file_handle):
             speed = row['speed']
             range = row['range']
             max_fuel = row['max_fuel']
-            available_classes = row['available_classes']
+            availabale_classes = row['availabale_classes']
             if None in row.values():
                 raise MalformPlaneDataError('Missing column in file')
             try:
@@ -34,7 +34,7 @@ def read_from_plane_file(file_handle):
                               height, wingspan, hull_diameter,
                               max_take_off_weight, number_of_seats,
                               engines, speed, range, max_fuel,
-                              available_classes, None)
+                              availabale_classes, [])
             except Exception:
                 raise InvalidPlaneError(row)
             planes.append(plane)

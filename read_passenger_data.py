@@ -9,7 +9,7 @@ class InvalidPassengerError(Exception):
         super().__init__("Invalid Passenger Data detected")
         self.tokens = tokens
 
-def read_from_file(file_handle):
+def read_from_passenger_file(file_handle):
     passengers = []
     reader = csv.DictReader(file_handle)
     try:
