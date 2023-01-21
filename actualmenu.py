@@ -28,7 +28,7 @@ def boarding_gate_info(flight_data):
     return first_part + second_part
 
 
-def fligh_data_to_print(flight_data):
+def flight_data_to_print(flight_data):
     place_from = flight_data.go_from()
     place_to = flight_data.go_to()
     departure_date = flight_data.date_from()
@@ -40,6 +40,14 @@ def fligh_data_to_print(flight_data):
     date = 'Departure_date:'.ljust(20) + departure_date.rjust(10) + " ".ljust(10) + 'Arrival_date:'.ljust(20) + arrival_date.rjust(10)
     time = 'Departure_time:'.ljust(20) + departure_time.rjust(10) + " ".ljust(10) + 'Arrival_time:'.ljust(20) + arrival_time.rjust(10)
     return place + '\n' + date + '\n' + time + '\n' + 'Plane name:'.ljust(20) + plane_name.rjust(50)
+
+
+def boarding_card(passengers_data, flight_data, seat_number, seat_class):
+    name = passengers_data.name()
+    surname = passengers_data.surname()
+    seat = 'Seat number:'.ljust(20) + seat_number.rjust(10) + ' '.ljust(10) + 'Class:'.ljust(20) + seat_class.rjust(10)
+    passenger = 'Name:'.ljust(20) + name.rjust(10) + ' '.ljust(10) + 'Surname:'.ljust(20) + surname.rjust(10)
+    return seat + '\n' + passenger + '\n' + flight_data_to_print(flight_data)
 
 def main():
     list_of_passengers = DatabasePerson
@@ -126,9 +134,15 @@ def main():
                 else:
                     return 0
             elif if_chosen == '2':
-                print(2)
+                print(boarding_card(passenger, flight_informations, seat_number, seat_class))
+                print("\nIf You want to return to menu press y")
+                if_return = input()
+                if if_return == 'y' or if_return =='Y':
+                    if_chosen = 0
+                else:
+                    return 0
             elif if_chosen == '3':
-                print(3)
+                    pass
             elif if_chosen == '4':
                 print(boarding_gate_info(flight_informations))
                 print("\nIf You want to return to menu press y")
@@ -138,7 +152,7 @@ def main():
                 else:
                     return 0
             elif if_chosen == '5':
-                print(fligh_data_to_print(flight_informations))
+                print(flight_data_to_print(flight_informations))
                 print("\nIf You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':
