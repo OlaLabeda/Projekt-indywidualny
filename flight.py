@@ -28,7 +28,7 @@ class Flight:
     def date_from(self):
         return self._date_from
 
-    def date_from(self):
+    def date_to(self):
         return self._date_to
 
     def hour_from(self):

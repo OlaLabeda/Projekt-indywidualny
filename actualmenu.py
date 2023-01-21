@@ -23,7 +23,7 @@ def flight_info(id, list_of_flights):
 def boarding_gate_info(flight_data):
     gate_number = flight_data.gate_number()
     boarding_till = flight_data.boarding_till()
-    first_part = f'Number of the gate: {gate_number.rjust(20)}\n'
+    first_part = f'Number of the gate: {gate_number.rjust(23)}\n'
     second_part = f'Boarding process till: {boarding_till.rjust(20)}'
     return first_part + second_part
 
@@ -109,6 +109,7 @@ def main():
 
         if_chosen = 0
         while if_chosen == 0:
+            os.system('cls')
             print("Press:")
             print("1 if You want to change the class or number of the seat")
             print("2 if You want to print Your boarding pass")
@@ -130,7 +131,7 @@ def main():
                 print(3)
             elif if_chosen == '4':
                 print(boarding_gate_info(flight_informations))
-                print("If You want to return to menu press y")
+                print("\nIf You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':
                     if_chosen = 0
@@ -138,7 +139,7 @@ def main():
                     return 0
             elif if_chosen == '5':
                 print(fligh_data_to_print(flight_informations))
-                print("If You want to return to menu press y")
+                print("\nIf You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':
                     if_chosen = 0
@@ -146,7 +147,7 @@ def main():
                     return 0
             else:
                 if_continue = input("There's no such option, press a to try again: ")
-                print("If You want to return to menu press y")
+                print("\nIf You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':
                     if_chosen = 0
