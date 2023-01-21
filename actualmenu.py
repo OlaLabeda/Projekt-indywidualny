@@ -1,6 +1,7 @@
-from database import DatabasePerson, DatabasePlane
+from database import DatabasePerson, DatabasePlane, DatabaseFlight
 from passenger import Passenger
-from seats_in_a_plane import Plane
+from plane import Plane
+from flight import Flight
 import os
 
 def check_input_data(name, surname, ticket_number, phone_number, list_of_passengers):
@@ -42,11 +43,13 @@ def main():
 
 
     if (if_logged_in['id']):
+        list_of_planes = DatabasePlane
+        list_of_planes.load_from_file(list_of_planes,
+                                      "plane_data.txt")
 
-        #    list_of_planes = DatabasePlane
-        #       list_of_planes.load_from_file(list_of_planes,
-        #                                "plane_data.txt")
 
+       # for planes in list_of_planes:
+       #     if planes.name() ==
         which_class_size = len(passenger.seat())
         # class business => 8 letters or economy => 7 letters
         # nummber of a seat always has 3 signs
@@ -81,7 +84,7 @@ def main():
             print("4 if You want to recieve boarding gate info")
             print("5 if You want to recieve plane info")
             if_chosen = input()
-            if if_chosen == 1:
+            if if_chosen == '1':
                 print("If You want to return to menu press y, else press n")
             elif if_chosen == 2:
                 pass
