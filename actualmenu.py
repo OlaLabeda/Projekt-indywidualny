@@ -2,7 +2,9 @@ from database import DatabasePerson, DatabasePlane, DatabaseFlight
 from passenger import Passenger
 from plane import Plane
 from flight import Flight
+from read_seats import read_plane_from_plane_file
 import os
+
 
 def check_input_data(name, surname, ticket_number, phone_number, list_of_passengers):
     for passengers in list_of_passengers:
@@ -19,6 +21,7 @@ def flight_info(id, list_of_flights):
     for planes in list_of_flights:
         if (planes.flight_id() == id):
             return planes
+
 
 def boarding_gate_info(flight_data):
     gate_number = flight_data.gate_number()
@@ -48,6 +51,48 @@ def boarding_card(passengers_data, flight_data, seat_number, seat_class):
     seat = 'Seat number:'.ljust(20) + seat_number.rjust(10) + ' '.ljust(10) + 'Class:'.ljust(20) + seat_class.rjust(10)
     passenger = 'Name:'.ljust(20) + name.rjust(10) + ' '.ljust(10) + 'Surname:'.ljust(20) + surname.rjust(10)
     return seat + '\n' + passenger + '\n' + flight_data_to_print(flight_data)
+
+
+def seat_data(which_class_size, passenger):
+        if which_class_size == 11:
+            seat_class = 'business'
+            seat_number = passenger.seat()[8:11]
+        elif which_class_size == 18:
+            seat_class = 'economy-premium'
+            seat_number = passenger.seat()[15:18]
+        else:
+            seat_class = 'economy'
+            seat_number = passenger.seat()[7:10]
+        return (seat_class, seat_number)
+
+
+def plane_data(plane_name, list_of_planes):
+    for planes in list_of_planes:
+        if planes.name() == plane_name:
+            return planes
+
+
+def plane_info_to_print(plane_data):
+        id = plane_data.plane_id()
+        name = plane_data.name()
+        len = plane_data.length()
+        height = plane_data.height()
+        wing = plane_data.wingspan()
+        diam = plane_data.hull_diameter()
+        weight = plane_data.max_take_off_weight()
+        seats = plane_data.number_of_seats()
+        engines = plane_data.engines()
+        speed = plane_data.speed()
+        p_range = plane_data.range()
+        p_fuel = plane_data.fuel()
+        s1 = 'Plane id: '.ljust(20) + id.rjust(15) + '\n' + 'Name: '.ljust(20) + name.rjust(15) + '\n'
+        s2 = 'Length: '.ljust(20) + len.rjust(15) + '\n' + 'Height: '.ljust(20) + height.rjust(15) + '\n'
+        s2 = 'Wingspan: '.ljust(20) + wing.rjust(15) + '\n' + 'Hull diameter: '.ljust(20) + diam.rjust(15) + '\n'
+        s3 = 'Weight: '.ljust(20) + weight.rjust(15) + '\n' + 'Number of seats: '.ljust(20) + seats.rjust(15) + '\n'
+        s4 = 'Engines: '.ljust(20) + engines.rjust(15) + '\n' + 'Speed: '.ljust(20) + speed.rjust(15) + '\n'
+        s5 = 'Range: '.ljust(20) + p_range.rjust(15) + '\n' + 'Fuel: '.ljust(20) + p_fuel.rjust(15) + '\n'
+        return '\n' + s1 + s2 + s3 + s4 + s5
+
 
 def main():
     list_of_passengers = DatabasePerson
@@ -81,43 +126,31 @@ def main():
         list_of_planes = DatabasePlane
         list_of_planes.load_from_file(list_of_planes,
                                       "plane_data.txt")
+
         list_of_flights = DatabaseFlight
         list_of_flights.load_from_file(list_of_flights,
                                        "flights_data.txt")
 
-        flight_informations =  flight_info(passenger.flight_id(), list_of_flights.data)
-        print(f'passengers plane: {flight_informations.plane_name()}')
+        flight_informations =  flight_info(passenger.flight_id(),
+                                           list_of_flights.data)
 
-
+        file_with_plane_seats = f'{flight_informations.plane_name()}.txt'
+        plane_seats = read_plane_from_plane_file(file_with_plane_seats)
 
         which_class_size = len(passenger.seat())
-        # class business => 8 letters or economy => 7 letters
-        # nummber of a seat always has 3 signs
-        # if length of a string  = 11 => business else economy
-        if which_class_size == 11:
-            seat_class = 'business'
-            seat_number = passenger.seat()[8:11]
-        elif which_class_size == 18:
-            seat_class = 'economy-premium'
-            seat_number = passenger.seat()[15:18]
-        else:
-            seat_class = 'economy'
-            seat_number = passenger.seat()[7:10]
+        seat_info = seat_data(which_class_size, passenger)
 
-        if_is_next_to_the_window = 0
-        # chyba najpierw tu pobiore plane dats
-        # space for the checking function
-        #
+        seat_class = seat_info[0]
+        seat_number = seat_info[1]
+
         print(f'You bought a ticket for {seat_class} class')
         print(f"Number of Your seat: {seat_number}")
-        if if_is_next_to_the_window:
-            print('Your sit is next to the window')
-        else:
-            print("Your sit is not next to the window")
+
+        plane_info = Plane
+        plane_info = plane_data(flight_informations.plane_name(), list_of_planes.data)
 
         if_chosen = 0
         while if_chosen == 0:
-            os.system('cls')
             print("Press:")
             print("1 if You want to change the class or number of the seat")
             print("2 if You want to print Your boarding pass")
@@ -127,6 +160,9 @@ def main():
             if_chosen = input()
             os.system('cls')
             if if_chosen == '1':
+                print('Press c if You want to change class')
+
+
                 print("If You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':
@@ -156,6 +192,7 @@ def main():
                     return 0
             elif if_chosen == '5':
                 print(flight_data_to_print(flight_informations))
+                print(plane_info_to_print(plane_info))
                 print("\nIf You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':

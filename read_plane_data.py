@@ -34,7 +34,7 @@ def read_from_plane_file(file_handle):
                               height, wingspan, hull_diameter,
                               max_take_off_weight, number_of_seats,
                               engines, speed, range, max_fuel,
-                              availabale_classes, [])
+                              availabale_classes, )
             except Exception:
                 raise InvalidPlaneError(row)
             planes.append(plane)

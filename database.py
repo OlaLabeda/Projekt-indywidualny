@@ -42,6 +42,7 @@ class DatabasePlane:
         except IsADirectoryError:
             raise PathIsDirectory('The path is a directory')
 
+
 class DatabaseFlight:
     def __init__(self):
         self.data = []

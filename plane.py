@@ -3,8 +3,9 @@ class Plane:
                  length, height, wingspan,
                  hull_diameter, max_take_off_weight,
                  number_of_seats, engines,
-                 speed,range,max_fuel,availabale_classes,
-                 list_of_seats = None):
+                 speed, range, max_fuel, availabale_classes,
+                 list_of_seats = {}):
+        self._plane_id = plane_id
         self._name = name
         self._length = length
         self._height = height
@@ -17,8 +18,10 @@ class Plane:
         self._range = range
         self._max_fuel = max_fuel
         self._available_classes = availabale_classes
-        self._list_of_seats = list_of_seats
+        self.list_of_seats = list_of_seats
 
+    def plane_id(self):
+        return self._plane_id
 
     def name(self):
         return self._name
@@ -54,11 +57,7 @@ class Plane:
         return self._max_fuel
 
     def available_classes(self):
-        return self.available_classes
-
-    def list_of_seats(self):
-        return self._list_of_seats
-
+        return self._available_classes
 
     def print_plane_info(self):
         print("Name: ", self.name().rjust(25))

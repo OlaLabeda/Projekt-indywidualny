@@ -1,3 +1,3 @@
 plane_id,name,length,height,wingspan,hull_diameter,max_take_off_weight,number_of_seats,engines,speed,range,max_fuel,availabale_classes
-1,Boeing 737-800,39.5,12.57,35.8,3.76,76655,186,CFM56-7B,838,5420,21320,2
-2,Boeing 787-8,56.72,16.92,60.12,5.94,227930,252,Rolls Royce Trent 1000,903,13620,101323,3
+1,Boeing_737-800,39.5,12.57,35.8,3.76,76655,186,CFM56-7B,838,5420,21320,2
+2,Boeing_787-8,56.72,16.92,60.12,5.94,227930,252,Rolls Royce Trent 1000,903,13620,101323,3
