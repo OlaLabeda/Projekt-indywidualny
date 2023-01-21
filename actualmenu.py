@@ -1,4 +1,4 @@
-from database import DatabasePerson
+from database import DatabasePerson, DatabasePlane
 from passenger import Passenger
 from seats_in_a_plane import Plane
 import os
@@ -40,10 +40,12 @@ def main():
             if (if_continue != 'a' and if_continue != 'A'):
                 return 0
 
-       # if (if_logged_in['id']):
-    #    list_of_planes = DatabasePlane
-     #       list_of_planes.load_from_file(list_of_planes,
-      #                                "plane_data.txt")
+
+    if (if_logged_in['id']):
+
+        #    list_of_planes = DatabasePlane
+        #       list_of_planes.load_from_file(list_of_planes,
+        #                                "plane_data.txt")
 
         which_class_size = len(passenger.seat())
         # class business => 8 letters or economy => 7 letters
@@ -81,7 +83,6 @@ def main():
             if_chosen = input()
             if if_chosen == 1:
                 print("If You want to return to menu press y, else press n")
-
             elif if_chosen == 2:
                 pass
             elif if_chosen == 3:
@@ -91,7 +92,12 @@ def main():
             elif if_chosen == 5:
                 pass
             else:
-                pass
+                if_continue = input("There's no such option, press a to try again: ")
+                if (if_continue != 'a' and if_continue != 'A'):
+                    return 0
+                else:
+                    if_chosen = 0
+
 
 if __name__ == "__main__":
     main()
