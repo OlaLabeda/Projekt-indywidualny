@@ -1,6 +1,8 @@
 from read_passenger_data import read_from_passenger_file
 from read_plane_data import read_from_plane_file
 from read_flight_data import read_from_flight_file
+from save_change import write_to_file
+
 
 class PathNotFound(FileNotFoundError):
     pass
@@ -25,6 +27,19 @@ class DatabasePerson:
             raise PermissionError('No permission to open database')
         except IsADirectoryError:
             raise PathIsDirectory('The path is a directory')
+
+
+    def save_to_file(self, path):
+        try:
+            with open(path, 'w') as file_handle:
+                write_to_file(file_handle, self.data)
+        except FileNotFoundError:
+            raise PathNotFound('Could not open database')
+        except PermissionError:
+            msg = 'You dont have the permission to open database'
+            raise PermissionError(msg)
+        except IsADirectoryError:
+            raise PathIsDirectory('can only work on files')
 
 
 class DatabasePlane:

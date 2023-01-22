@@ -1,4 +1,4 @@
-Seat number:               A06          Class:                business
+Seat number:               E01          Class:                business
 Name:                   Felipe          Surname:                  Bran
 From:                   Warsaw          To:                     Berlin
 Departure_date:     25-01-2023          Arrival_date:       25-01-2023

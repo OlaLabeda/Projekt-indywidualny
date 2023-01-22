@@ -22,6 +22,11 @@ def flight_info(id, list_of_flights):
         if (planes.flight_id() == id):
             return planes
 
+def edited_passenger(ticket_number, list_of_passengers):
+    for passenger in list_of_passengers:
+        if (passenger.ticket_number() == ticket_number):
+            return passenger
+
 
 def boarding_gate_info(flight_data):
     gate_number = flight_data.gate_number()
@@ -208,17 +213,14 @@ def main():
                                     break
 
                     if if_among_available == 1:
-                        list_of_available_seats[new_class].remove(seat_change)
-                        list_of_taken_seats[new_class].append(seat_change)
-                        list_of_taken_seats[seat_class].remove(seat_number)
-                        list_of_available_seats[seat_class].append(seat_number)
-
                         new_seat = new_class + seat_change
-
                         passenger.set_seat(new_seat)
-
-
+                        list_of_passengers.save_to_file(list_of_passengers, 'passengers_data.txt')
+                        list_of_passengers.load_from_file(list_of_passengers, 'passengers_data.txt')
+                        passenger = edited_passenger(passenger.ticket_number(), list_of_passengers.data)
                         correct_seat_num = 1
+                        print('You successfully schanged Your seat')
+
                     if not if_among_available:
                         print('Incorrect data. Press a if You want to try again')
                         again = input()
