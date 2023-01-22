@@ -195,41 +195,44 @@ def main():
             if if_chosen == '1':
                 list_of_taken_seats = taken_seats(list_of_passengers.data, passenger.flight_id())
                 list_of_available_seats = available_seats(plane_seats, list_of_taken_seats)
-                print('Available seats: ')
-                for keys in list_of_available_seats.keys():
-                    print(f'In {keys} class:')
-                    print(list_of_available_seats[keys])
-
-                correct_seat_num = 0
-                while correct_seat_num == 0:
-                    print('Type in the seat number You would like to change to: ')
-                    seat_change = input()
-                    if_among_available = 0
+                if list_of_available_seats:
+                    print('Available seats: ')
                     for keys in list_of_available_seats.keys():
-                        for values in list_of_available_seats[keys]:
+                        print(f'In {keys} class:')
+                        print(list_of_available_seats[keys])
+
+                    correct_seat_num = 0
+                    while correct_seat_num == 0:
+                        print('Type in the seat number You would like to change to: ')
+                        seat_change = input()
+                        if_among_available = 0
+                        for keys in list_of_available_seats.keys():
+                            for values in list_of_available_seats[keys]:
                                 if seat_change == values:
                                     new_class = keys
                                     if_among_available  = 1
                                     break
 
-                    if if_among_available == 1:
-                        new_seat = new_class + seat_change
-                        passenger.set_seat(new_seat)
-                        list_of_passengers.save_to_file(list_of_passengers, 'passengers_data.txt')
-                        list_of_passengers.load_from_file(list_of_passengers, 'passengers_data.txt')
-                        passenger = edited_passenger(passenger.ticket_number(), list_of_passengers.data)
-                        correct_seat_num = 1
-                        print('You successfully schanged Your seat')
+                        if if_among_available == 1:
+                            seat_number = seat_change
+                            seat_class = new_class
+                            new_seat = new_class + seat_change
+                            passenger.set_seat(new_seat)
+                            list_of_passengers.save_to_file(list_of_passengers, 'passengers_data.txt')
+                            list_of_passengers.load_from_file(list_of_passengers, 'passengers_data.txt')
+                            passenger = edited_passenger(passenger.ticket_number(), list_of_passengers.data)
+                            correct_seat_num = 1
+                            print('You successfully schanged Your seat')
 
-                    if not if_among_available:
-                        print('Incorrect data. Press a if You want to try again')
-                        again = input()
-                        if again == 'a' or again == 'A':
-                            correct_seat_num = 0
-                        else:
-                            break
-
-
+                        if not if_among_available:
+                            print('Incorrect data. Press a if You want to try again')
+                            again = input()
+                            if again == 'a' or again == 'A':
+                                correct_seat_num = 0
+                            else:
+                                break
+                else:
+                    print('There is no available seats left')
                 print("If You want to return to menu press y")
                 if_return = input()
                 if if_return == 'y' or if_return =='Y':
@@ -237,6 +240,7 @@ def main():
                 else:
                     return 0
             elif if_chosen == '2':
+                passenger = edited_passenger(passenger.ticket_number(), list_of_passengers.data)
                 print(boarding_card(passenger, flight_informations, seat_number, seat_class))
                 boarding_card_data = open("boarding_card.txt", "w")
                 boarding_card_data.write(boarding_card(passenger, flight_informations, seat_number, seat_class))

@@ -4,7 +4,7 @@ id,name,surname,ticket_number,flight_id,phone_number,seat
 3,Jan,Antosiewicz,1542,1,785245678,businessA03
 4,Zuzanna,Krzyszak,1543,1,789123456,businessA04
 5,Bartosz,Bubel,1544,1,74136985,businessA05
-6,Felipe,Bran,1545,1,753159852,economyE06
+6,Felipe,Bran,1545,1,753159852,businessE03
 7,Marek,Polak,1546,1,147852369,businessB01
 8,Piotrek,Piesek,1546,1,987654321,businessB02
 9,Boguslaw,Bodo,1547,1,888888222,businessB03
