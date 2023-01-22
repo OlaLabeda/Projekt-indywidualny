@@ -25,6 +25,9 @@ class   Passenger:
         flight_id = self.flight_id()
         return f'{id}, {name} {surname}, {ticket_number}, {flight_id}'
 
+    def set_seat(self, new_seat):
+        self._seat = new_seat
+
     def name(self):
         return self._name
 

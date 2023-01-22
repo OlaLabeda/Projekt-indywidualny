@@ -59,21 +59,6 @@ class Plane:
     def available_classes(self):
         return self._available_classes
 
-    def print_plane_info(self):
-        print("Name: ", self.name().rjust(25))
-        print("Length: ", self.length().rjust(25))
-        print("Height: ", self.height().rjust(25))
-        print("Wingspan: ", self.wingspan().rjust(25))
-        print("Hull diameter: ", self.hull_diameter().rjust(25))
-        print("Maximum take off weight: ", self.max_take_off_weight().rjust(25))
-        print("Number of seats: ", self.number_of_seats().rjust(25))
-        print("Engines: ", self.engines().rjust(25))
-        print("Speed: ", self.speed().rjust(25))
-        print("Range: ", self.range().rjust(25))
-        print("Maxinum fuel: ", self._max_fuel().rjust(25))
-        print("\n")
-        # printowanie listy siedzen lol
-
 
 
 

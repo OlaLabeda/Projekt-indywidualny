@@ -56,13 +56,13 @@ def boarding_card(passengers_data, flight_data, seat_number, seat_class):
 def seat_data(which_class_size, passenger):
         if which_class_size == 11:
             seat_class = 'business'
-            seat_number = passenger.seat()[8:11]
+            seat_number = passenger.seat()[8:12]
         elif which_class_size == 18:
             seat_class = 'economy-premium'
             seat_number = passenger.seat()[15:18]
         else:
             seat_class = 'economy'
-            seat_number = passenger.seat()[7:10]
+            seat_number = passenger.seat()[7:11]
         return (seat_class, seat_number)
 
 
@@ -92,6 +92,35 @@ def plane_info_to_print(plane_data):
         s4 = 'Engines: '.ljust(20) + engines.rjust(15) + '\n' + 'Speed: '.ljust(20) + speed.rjust(15) + '\n'
         s5 = 'Range: '.ljust(20) + p_range.rjust(15) + '\n' + 'Fuel: '.ljust(20) + p_fuel.rjust(15) + '\n'
         return '\n' + s1 + s2 + s3 + s4 + s5
+
+def taken_seats(list_of_passengers, flight_id):
+    list_of_taken_seats = {}
+    for passenger in list_of_passengers:
+        if (flight_id == passenger.flight_id()):
+            which_class_size = len(passenger.seat())
+            seat_info = seat_data(which_class_size, passenger)
+            seat_class = seat_info[0]
+            seat_number = seat_info[1]
+            if seat_class in list_of_taken_seats.keys():
+                list_of_taken_seats[seat_class].append(seat_number)
+            else:
+                list_of_taken_seats[seat_class] = []
+                list_of_taken_seats[seat_class].append(seat_number)
+    return list_of_taken_seats
+
+
+def available_seats(plane_seats, list_of_taken_seats):
+    list_of_available_seats = {}
+    for keys in plane_seats.keys():
+        for elements in plane_seats[keys]:
+            for lists in elements:
+                if lists not in list_of_taken_seats[keys]:
+                    if keys in list_of_available_seats.keys():
+                        list_of_available_seats[keys].append(lists)
+                    else:
+                        list_of_available_seats[keys] = []
+                        list_of_available_seats[keys].append(lists)
+    return list_of_available_seats
 
 
 def main():
@@ -154,13 +183,49 @@ def main():
             print("Press:")
             print("1 if You want to change the class or number of the seat")
             print("2 if You want to print Your boarding pass")
-            print("3 if You want to order the help of an assistant")
-            print("4 if You want to recieve boarding gate info")
-            print("5 if You want to recieve plane and flight info")
+            print("3 if You want to recieve boarding gate info")
+            print("4 if You want to recieve plane and flight info")
             if_chosen = input()
             os.system('cls')
             if if_chosen == '1':
-                print('Press c if You want to change class')
+                list_of_taken_seats = taken_seats(list_of_passengers.data, passenger.flight_id())
+                list_of_available_seats = available_seats(plane_seats, list_of_taken_seats)
+                print('Available seats: ')
+                for keys in list_of_available_seats.keys():
+                    print(f'In {keys} class:')
+                    print(list_of_available_seats[keys])
+
+                correct_seat_num = 0
+                while correct_seat_num == 0:
+                    print('Type in the seat number You would like to change to: ')
+                    seat_change = input()
+                    if_among_available = 0
+                    for keys in list_of_available_seats.keys():
+                        for values in list_of_available_seats[keys]:
+                                if seat_change == values:
+                                    new_class = keys
+                                    if_among_available  = 1
+                                    break
+
+                    if if_among_available == 1:
+                        list_of_available_seats[new_class].remove(seat_change)
+                        list_of_taken_seats[new_class].append(seat_change)
+                        list_of_taken_seats[seat_class].remove(seat_number)
+                        list_of_available_seats[seat_class].append(seat_number)
+
+                        new_seat = new_class + seat_change
+
+                        passenger.set_seat(new_seat)
+
+
+                        correct_seat_num = 1
+                    if not if_among_available:
+                        print('Incorrect data. Press a if You want to try again')
+                        again = input()
+                        if again == 'a' or again == 'A':
+                            correct_seat_num = 0
+                        else:
+                            break
 
 
                 print("If You want to return to menu press y")
@@ -181,8 +246,6 @@ def main():
                 else:
                     return 0
             elif if_chosen == '3':
-                    pass
-            elif if_chosen == '4':
                 print(boarding_gate_info(flight_informations))
                 print("\nIf You want to return to menu press y")
                 if_return = input()
@@ -190,7 +253,7 @@ def main():
                     if_chosen = 0
                 else:
                     return 0
-            elif if_chosen == '5':
+            elif if_chosen == '4':
                 print(flight_data_to_print(flight_informations))
                 print(plane_info_to_print(plane_info))
                 print("\nIf You want to return to menu press y")

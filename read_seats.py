@@ -13,12 +13,11 @@ def read_plane_from_plane_file(path_to_file):
                 seats[line] = []
                 key = line
             else:
-                line = line.replace('\t', '')
+                line = line.replace('\n', '')
+                line = line.replace('\t', ' ')
+                line = line.split()
                 length_of_line = len(line)
-                elements = 3
-                while elements < length_of_line:
-                    seats[key].append(line[elements-3:elements])
-                    elements += 3
+                seats[key].append(line)
             line = f_path.readline()
             increment += 1
 
